@@ -20,12 +20,12 @@ console.log(reverseString(null));
 console.log(reverseString(12));
 
 
-// built-in method
+// using built-in method
 function reverseStringSimple(str) {
     return str.split('').reverse().join('');
 }
 
 console.log(reverseStringSimple('sungjin park'));
 
-// Or.. 1
+// Or... string reverse in one line
 console.log('something'.split('').reverse().join(''));
