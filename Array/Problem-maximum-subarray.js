@@ -36,16 +36,19 @@ Output: 23
 
 // better answer - O(n)  **** need to understand more about this mathod.
 
+
 function maxSubArray(nums) {
     let maxSum = nums[0];
     let currSum = nums[0];
     for (let i = 1; i < nums.length; i++) {
         currSum = Math.max(nums[i], nums[i] + currSum);
-        // current sum is keep being updated when the sum is getting bigger. 
-        // If currSum makes nums[i] smaller, currSum stores nums[i] and start adding the number after.
-        
+    // Check if it adds up to a bigger value (meaning it is worth to keep on adding)
+			// How? By comparing the sum and the last number that has been added. 
+			// if the last number is bigger than the sum, that means adding what was before is a minus.
+    // If currSum makes nums[i] smaller, currSum restart the process from nums[i].
+
         maxSum = Math.max(currSum, maxSum);
-        // maxSum compares each currSum that has been updated and stores the biggest sum.
+     // maxSum will store the biggest currSum.
     }
     return maxSum;
 }
