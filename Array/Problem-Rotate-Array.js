@@ -34,7 +34,12 @@
     
     /*
     2. for O(1) extra space,
-    Cheating from leetcode, they were using 
+    Cheating from leetcode, they were using the reverse funciton they made to reverse three different parts.
+    1. first part is from the beginning till where the new end of array when it shifts k times. --> 0 ~ nums.length-k-1
+    2. second is from the new start till the end of the array. --> nums.length-k to nums.length-1
+    3. last one is just reversing the whole array.
+    if nums is 1,2,3,4,5 and k is 2, the rotation process is:
+    [1,2,3,4,5] --1--> [3,2,1,4,5] --2--> [3,2,1,5,4] --3--> [4,5,1,2,3]
     */
     
 }
