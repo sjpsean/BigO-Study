@@ -18,9 +18,23 @@
     return newNums;
     
     */
+
+    let newNums = [];
+    let length = nums.length;
+    k = k % length;
+    let idx = length - k;
+    for (let i = 0; i < length; i++) {
+        newNums.push(nums[idx % length]);
+        idx++;
+    }
+    for (let i = 0; i < length; i++) {
+        nums[i] = newNums[i];
+    }
+
     
     /*
     2. for O(1) extra space,
+    Cheating from leetcode, they were using 
     */
     
 }
