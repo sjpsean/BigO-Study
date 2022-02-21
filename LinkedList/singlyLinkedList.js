@@ -47,11 +47,10 @@ class LinkedList {
             return false;
         }
         
-        let nodeBeforeIndex = this.traverseToIndex(index - 1);
+        let nodeBeforeIndex = this.traverseToIndex(index-1);
         newNode.next = nodeBeforeIndex.next;
         nodeBeforeIndex.next = newNode;
         this.length++;
-        return this;
     }
 
     remove(index) {
