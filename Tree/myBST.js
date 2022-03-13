@@ -76,6 +76,8 @@ class BinarySearchTree {
                 nodeToDelete = currentNode;
             } else if (currentNode.value > value) {
                 currentNode = currentNode.left;
+            } else if (currentNode.value < value) {
+                currentNode = currentNode.right;
             }
         }
     }
