@@ -12,14 +12,14 @@ class BinarySearchTree {
     }
 
     insert(value) {
-        newNode = new Node(value);
+        const newNode = new Node(value);
         // root node is empty
         if (this.root === null) {
             this.root = newNode;
             return this;
         }
         // root node exists
-        emptySpot = this.root;
+        let emptySpot = this.root;
         while (emptySpot != null) {
             if (newNode.value > emptySpot.value) {
                 if (emptySpot.right === null) {
@@ -43,7 +43,7 @@ class BinarySearchTree {
     }
 
     lookup(value) {
-        currentNode = this.root;
+        let currentNode = this.root;
 
         while(currentNode) {
             if (currentNode.value > value) {
@@ -51,35 +51,83 @@ class BinarySearchTree {
             } else if (currentNode.value < value) {
                 currentNode = currentNode.right;
             } else {
+                console.log(currentNode);
                 return currentNode;
             }
         }
-        
+        console.log("failed to lookup " + value);
         return false;
     }
 
     remove(value) {
-        currentNode = this.root;
+        let currentNode = this.root;
 
-        nodeBefore = null;
-        nodeToDelete = null;
-        nodeToReplace = null;
+        let nodeBefore = null;
+        let nodeToDelete = null;
+        let nodeToReplace = null;
         
-        while(true) {
-            if (currentNode.left.value === value) {
-                nodeBefore = currentNode;
+        if (currentNode.value === value) {
+            root = null;
+            return this;
+        }
+
+        while(currentNode) {
+            if (value < currentNode.value) {
+                if (currentNode.left && currentNode.left.value === value) {
+                    nodeBefore = currentNode;
+                    nodeToDelete = currentNode.left;
+
+                    nodeToReplace = this.findNodeToReplace(currentNode);
+                    nodeToReplace.left = nodeToDelete.left;
+                    nodeToReplace.right = nodeToDelete.right;
+                    nodeBefore.left = nodeToReplace;
+                    return this;
+                }
+                
                 currentNode = currentNode.left;
-                nodeToDelete = currentNode;
-            } else if (currentNode.right.value === value) {
-                nodeBefore = currentNode;
-                currentNode = currentNode.right;
-                nodeToDelete = currentNode;
-            } else if (currentNode.value > value) {
-                currentNode = currentNode.left;
-            } else if (currentNode.value < value) {
+            } else if (value > currentNode.value) {
+                if (currentNode.right && currentNode.right.value === value) {
+                    nodeBefore = currentNode;
+                    nodeToDelete = currentNode.right;
+
+                    nodeToReplace = this.findNodeToReplace(currentNode);
+                    nodeToReplace.left = nodeToDelete.left;
+                    nodeToReplace.right = nodeToDelete.right;
+                    nodeBefore.right = nodeToReplace;
+                    return this;
+                }
+
                 currentNode = currentNode.right;
             }
+        }        
+    }
+
+    findNodeToReplace(currentNode) {
+        let nodeToReplace = null;
+        while(currentNode.left) {
+            if (currentNode.left.left) {
+                currentNode = currentNode.left;
+            } else {
+                nodeToReplace = currentNode.left;
+                if (currentNode.left.right) {
+                    currentNode.left = currentNode.left.right;
+                } else {
+                    currentNode.left = null;
+                }
+            }
         }
+
+        return nodeToReplace;
     }
 }
 
+const myBST = new BinarySearchTree();
+
+myBST.insert(5);
+myBST.insert(2);
+myBST.insert(7);
+myBST.insert(1);
+myBST.remove(2);
+myBST.insert(2);
+
+console.log(myBST.root);
